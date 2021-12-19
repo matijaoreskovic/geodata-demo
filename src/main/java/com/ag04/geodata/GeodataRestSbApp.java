@@ -20,13 +20,13 @@ import tech.jhipster.config.JHipsterConstants;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
-public class GeodataSbRestApp {
+public class GeodataRestSbApp {
 
-    private static final Logger log = LoggerFactory.getLogger(GeodataSbRestApp.class);
+    private static final Logger log = LoggerFactory.getLogger(GeodataRestSbApp.class);
 
     private final Environment env;
 
-    public GeodataSbRestApp(Environment env) {
+    public GeodataRestSbApp(Environment env) {
         this.env = env;
     }
 
@@ -64,7 +64,7 @@ public class GeodataSbRestApp {
      * @param args the command line arguments.
      */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(GeodataSbRestApp.class);
+        SpringApplication app = new SpringApplication(GeodataRestSbApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);

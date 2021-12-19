@@ -1,11 +1,10 @@
-# geodataSbRest
-Spring Boot rest only version of **[geodataApp][]**.
+# geodataRestSb
+Spring Boot **rest only** implementation of **[geodataApp][]**.
 
 This application was generated using JHipster 7.4.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.4.1](https://www.jhipster.tech/documentation-archive/v7.4.1).
 
 ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white&style=flat)
-![](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white&style=flat)
-![](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white&style=flat)
+![](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white&style=flat)
 
 ## Project Structure
 
@@ -47,10 +46,10 @@ Disconnect from "default" database, and connect to ag04 database using the same 
 ```sql
 CREATE SCHEMA IF NOT EXISTS AUTHORIZATION "geodata";
 ```
-### Running geodata-sb-rest application
+### Running geodata-rest-sb application
 
-For **geodata-sb-rest** application to be run you need to specify one runtime env variable **GSBR_LIQUIBASE_ENABLED** with value set to `true` or `false`.
-This variable controls if **geodata-sb-rest** liquibase is enabled or not. 
+For **geodata-rest-sb** application to be run you need to specify one runtime env variable **GRSB_LIQUIBASE_ENABLED** with value set to `true` or `false`.
+This variable controls if **geodata-rest-sb** liquibase is enabled or not. 
 
 **It should not be enabled if you have already created all database objects and populated them (for example while running [geodataApp][]).**
 
@@ -130,22 +129,17 @@ For more information, refer to the [Code quality page][].
 
 You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
 
-For example, to start a postgresql database in a docker container, run:
-
-```
-docker-compose -f src/main/docker/postgresql.yml up -d
-```
-
-To stop it and remove the container, run:
-
-```
-docker-compose -f src/main/docker/postgresql.yml down
-```
-
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, you first need to build a docker image of **geodata-sb-rest** app (see section below).
+You can fully dockerize your application and all the services that it depends on.
+To achieve this, you first need to build a docker image of **geodata-rest-sb** app (for more see section below).
 
 Then run:
+
+```
+docker-compose -f src/main/docker/app-db.yml up -d
+```
+This will start, inside docker container, both geodata-sb-rest and postgres databas.
+
+To start only geodata-sb-rest application which connects to host Postgres database run:
 
 ```
 docker-compose -f src/main/docker/app.yml up -d
@@ -162,13 +156,13 @@ To build local image use the follwoing command:
 ```bash
 ./gradlew bootJar -Pprod jibDockerBuild
 ```
-This will build image named ` ag04/geodata-sb-rest ` in your local registry with the tag equal to the project version.
+This will build image named ` ag04/geodata-rest-sb ` in your local registry with the tag equal to the project version.
 
 On the other hand, this command:
 ```bash
 ./gradlew bootJar -Pprod jib
 ```
-Will build image named `ag04/geodata-sb-res` in docker.io registry with the tag equal to the project version.
+Will build image named `ag04/geodata-rest-sb` in docker.io registry with the tag equal to the project version.
 
 Image name, version and docker Registry to be used in buildcan be customized by passing these arguments:
 
@@ -178,7 +172,9 @@ Image name, version and docker Registry to be used in buildcan be customized by 
 | imageVersion      | Image tag to be used insted of project version  |
 | dockerRegistryUrl | URL of the docker registry this image should be pushed to (applicable only for jib command) |
 
-To build (local) image wiht the latest tag run:
+
+For example, to build (local) image wiht the latest tag run:
+
 ```bash
 ./gradlew bootJar -Pprod jibDockerBuild -PimageVersion=latest
 ```

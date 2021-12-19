@@ -1,8 +1,8 @@
 {
-  "name": "geodata-sb-rest",
+  "name": "geodata-rest-sb",
   "version": "0.0.0",
   "private": true,
-  "description": "Description for geodataSbRest",
+  "description": "Geodata rest app spring boot implementation",
   "license": "UNLICENSED",
   "scripts": {
     "app:start": "./gradlew",

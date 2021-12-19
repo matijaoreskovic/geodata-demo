@@ -1,6 +1,6 @@
 package com.ag04.geodata;
 
-import com.ag04.geodata.GeodataSbRestApp;
+import com.ag04.geodata.GeodataRestSbApp;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,6 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = GeodataSbRestApp.class)
+@SpringBootTest(classes = GeodataRestSbApp.class)
 public @interface IntegrationTest {
 }

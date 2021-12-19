@@ -126,7 +126,7 @@ spring:
     ansi:
       console-available: true
   liquibase:
-    enabled: ${GSBR_LIQUIBASE_ENABLED}
+    enabled: ${GRSB_LIQUIBASE_ENABLED}
 
 server:
   servlet:

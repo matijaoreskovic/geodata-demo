@@ -14,10 +14,10 @@
             "type": "java",
             "name": "Launch GeodataSbRestApp",
             "request": "launch",
-            "mainClass": "com.ag04.geodata.GeodataSbRestApp",
-            "projectName": "geodata-sb-rest",
+            "mainClass": "com.ag04.geodata.GeodataRestSbApp",
+            "projectName": "geodata-rest-sb",
             "env": {
-                "GSBR_LIQUIBASE_ENABLED" : "false",
+                "GRSB_LIQUIBASE_ENABLED" : "false",
             }
         }
     ]

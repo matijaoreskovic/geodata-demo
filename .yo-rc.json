@@ -1,7 +1,7 @@
 {
   "generator-jhipster": {
     "applicationType": "monolith",
-    "baseName": "geodataSbRest",
+    "baseName": "geodataRestSb",
     "jhipsterVersion": "7.4.1",
     "skipUserManagement": false,
     "skipCheckLengthOfIdentifier": false,
