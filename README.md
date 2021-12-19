@@ -135,14 +135,14 @@ To achieve this, you first need to build a docker image of **geodata-rest-sb** a
 Then run:
 
 ```
-docker-compose -f src/main/docker/app-db.yml up -d
+docker-compose -f src/main/docker/app.yml up -d
 ```
-This will start, inside docker container, both geodata-sb-rest and postgres databas.
+This will start, inside docker container, both geodata-sb-rest and postgres database.
 
 To start only geodata-sb-rest application which connects to host Postgres database run:
 
 ```
-docker-compose -f src/main/docker/app.yml up -d
+docker-compose -f src/main/docker/app-host.yml up -d
 ```
 
 For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
