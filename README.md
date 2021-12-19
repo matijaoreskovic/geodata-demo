@@ -137,14 +137,14 @@ Then run:
 ```
 docker-compose -f src/main/docker/app.yml up -d
 ```
-This will start, inside docker container, the following services:
-- geodata-sb-rest 
+This will start, inside the docker container, the following services:
+- geodata-rest-sb
 - geodata angular frontend
-- postgres database.
+- postgres database
 
 Now, you can access the application by openning `http://localhost:9000/` in your browser.
 
-To start only geodata-sb-rest and geodata-ng applications which connects to local host Postgres database, run:
+To start only geodata-rest-sb and geodata-ng applications, which connect to local host Postgres database, run:
 
 ```
 docker-compose -f src/main/docker/app-host.yml up -d
@@ -154,21 +154,21 @@ For more information refer to [Using Docker and Docker-Compose][], this page als
 
 
 ## Buidling docker image
-JIB plugin is used to build docker image of the spotsie-rest subproject.
+JIB plugin is used to build **geodata-rest-sb** application docker image.
 
-To build local image use the follwoing command:
+To build local image use the following command:
 
 ```bash
 ./gradlew bootJar -Pprod jibDockerBuild
 ```
-This will build image named ` ag04/geodata-rest-sb ` in your local registry with the tag equal to the project version.
+This will build image named ` ag04/geodata-rest-sb ` in your local registry with the tag same as the current project version.
 
 On the other hand, the command:
 
 ```bash
 ./gradlew bootJar -Pprod jib
 ```
-will build image named `ag04/geodata-rest-sb` in docker.io registry with the tag equal to the project version.
+will build image named `ag04/geodata-rest-sb` in docker.io registry, also with the tag same as the project version.
 
 Image name, version and docker Registry used in container image build can be customized by passing these arguments:
 
@@ -179,7 +179,7 @@ Image name, version and docker Registry used in container image build can be cus
 | dockerRegistryUrl | URL of the docker registry this image should be pushed to (applicable only for jib command) |
 
 
-For example, to build (local) image wiht the latest tag run:
+For example, to build (local) image wiht the `latest` tag run:
 
 ```bash
 ./gradlew bootJar -Pprod jibDockerBuild -PimageVersion=latest
