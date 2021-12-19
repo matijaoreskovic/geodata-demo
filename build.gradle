@@ -24,9 +24,7 @@ plugins {
 }
 
 group = "com.ag04.geodata"
-version = "0.0.1-SNAPSHOT"
-
-description = ""
+description = "Spring boot implementation of geodata rest API"
 
 sourceCompatibility=11
 targetCompatibility=11

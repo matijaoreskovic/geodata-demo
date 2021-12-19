@@ -137,9 +137,14 @@ Then run:
 ```
 docker-compose -f src/main/docker/app.yml up -d
 ```
-This will start, inside docker container, both geodata-sb-rest and postgres database.
+This will start, inside docker container, the following services:
+- geodata-sb-rest 
+- geodata angular frontend
+- postgres database.
 
-To start only geodata-sb-rest application which connects to host Postgres database run:
+Now, you can access the application by openning `http://localhost:9000/` in your browser.
+
+To start only geodata-sb-rest and geodata-ng applications which connects to local host Postgres database, run:
 
 ```
 docker-compose -f src/main/docker/app-host.yml up -d
