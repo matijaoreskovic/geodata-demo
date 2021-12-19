@@ -158,13 +158,14 @@ To build local image use the follwoing command:
 ```
 This will build image named ` ag04/geodata-rest-sb ` in your local registry with the tag equal to the project version.
 
-On the other hand, this command:
+On the other hand, the command:
+
 ```bash
 ./gradlew bootJar -Pprod jib
 ```
-Will build image named `ag04/geodata-rest-sb` in docker.io registry with the tag equal to the project version.
+will build image named `ag04/geodata-rest-sb` in docker.io registry with the tag equal to the project version.
 
-Image name, version and docker Registry to be used in buildcan be customized by passing these arguments:
+Image name, version and docker Registry used in container image build can be customized by passing these arguments:
 
 | Argument name     | Description                    |
 |-------------------|--------------------------------|

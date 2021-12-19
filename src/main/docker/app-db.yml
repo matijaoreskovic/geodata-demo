@@ -9,7 +9,7 @@ services:
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       #- SPRING_DATASOURCE_URL=jdbc:postgresql://geodatarestsb-postgresql:5432/geodataRestSb
       #- SPRING_LIQUIBASE_URL=jdbc:postgresql://geodatarestsb-postgresql:5432/geodataRestSb
-      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+      - JHIPSTER_SLEEP=10 # gives time for other services to boot before the application
       - DATASOURCE_URL=jdbc:postgresql://geodatarestsb-postgresql:5432/geodataRestSb
       - DB_USER=geodataRestSb
       - DB_PWD=
@@ -24,7 +24,7 @@ services:
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
     ports:
-      - 127.0.0.1:8080:8080
+      - 8080:8080
   geodatarestsb-postgresql:
     image: postgres:13.5
     # volumes:
