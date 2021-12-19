@@ -41,6 +41,8 @@
     "clientThemeVariant": "",
     "withAdminUi": true,
     "languages": ["en", "hr"],
-    "enableGradleEnterprise": false
+    "enableGradleEnterprise": false,
+    "entities": ["Country", "Currency"],
+    "lastLiquibaseTimestamp": 1639908198000
   }
 }

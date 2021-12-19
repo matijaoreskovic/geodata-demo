@@ -1,9 +1,25 @@
+def imageName = 'ag04/geodata-rest-sb'
+def imageVersion = "${version}"
+def dockerRegistryUrl = ''
+
+if (project.hasProperty("imageName")) {
+    imageName = project.getProperty("imageName");
+}
+
+if (project.hasProperty("imageVersion")) {
+    imageVersion = project.getProperty("imageVersion")
+}
+
+if (project.hasProperty("dockerRegistryUrl")) {
+    dockerRegistryUrl = project.getProperty("dockerRegistryUrl") + "/";
+}
+
 jib {
     from {
         image = "eclipse-temurin:11-jre-focal"
     }
     to {
-        image = "geodatasbrest:latest"
+        image = "${dockerRegistryUrl}${imageName}:${imageVersion}"
     }
     container {
         entrypoint = ["bash", "-c", "/entrypoint.sh"]
@@ -20,4 +36,3 @@ jib {
       permissions = ["/entrypoint.sh": "755"]
     }
 }
-

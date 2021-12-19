@@ -48,6 +48,8 @@ public class CacheConfiguration {
             createCache(cm, com.ag04.geodata.domain.User.class.getName());
             createCache(cm, com.ag04.geodata.domain.Authority.class.getName());
             createCache(cm, com.ag04.geodata.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.ag04.geodata.domain.Country.class.getName());
+            createCache(cm, com.ag04.geodata.domain.Currency.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

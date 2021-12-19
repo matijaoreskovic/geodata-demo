@@ -125,6 +125,8 @@ spring:
   output:
     ansi:
       console-available: true
+  liquibase:
+    enabled: ${LIQUIBASE_ENABLED}
 
 server:
   servlet:
