@@ -17,7 +17,7 @@
             "mainClass": "com.ag04.geodata.GeodataSbRestApp",
             "projectName": "geodata-sb-rest",
             "env": {
-                "LIQUIBASE_ENABLED" : "false",
+                "GSBR_LIQUIBASE_ENABLED" : "false",
             }
         }
     ]

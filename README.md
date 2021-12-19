@@ -1,5 +1,5 @@
 # geodataSbRest
-Spring Boot rest only version of geodataApp.
+Spring Boot rest only version of **[geodataApp][]**.
 
 This application was generated using JHipster 7.4.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.4.1](https://www.jhipster.tech/documentation-archive/v7.4.1).
 
@@ -24,7 +24,37 @@ In the project root, JHipster generates configuration files for tools like git, 
 
 ## Development
 
-To start your application in the dev profile, run:
+### 1. Database setup (optional)
+This step needs to be performed only if you have not already done it while preparing [geodataApp][].
+
+If you already do not have it, create a database named: **ag04**.
+Connect to database with user that has sufficient privileges and execute:
+
+```sql
+CREATE DATABASE ag04;
+```
+
+The next step is to create **geodata** user and his corresponding schema.
+To do so execute the following sql commands:
+
+```sql
+CREATE ROLE geodata NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT LOGIN PASSWORD 'geodatapwd';
+GRANT ALL PRIVILEGES ON DATABASE ag04 TO geodata;
+```
+
+Disconnect from "default" database, and connect to ag04 database using the same user as in the previous steps.
+
+```sql
+CREATE SCHEMA IF NOT EXISTS AUTHORIZATION "geodata";
+```
+### Running geodata-sb-rest application
+
+For **geodata-sb-rest** application to be run you need to specify one runtime env variable **GSBR_LIQUIBASE_ENABLED** with value set to `true` or `false`.
+This variable controls if **geodata-sb-rest** liquibase is enabled or not. 
+
+**It should not be enabled if you have already created all database objects and populated them (for example while running [geodataApp][]).**
+
+Once, you have this env var in place start your application in the dev profile by running:
 
 ```
 ./gradlew
@@ -113,11 +143,7 @@ docker-compose -f src/main/docker/postgresql.yml down
 ```
 
 You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a docker image of your app by running:
-
-```
-./gradlew bootJar -Pprod jibDockerBuild
-```
+To achieve this, you first need to build a docker image of **geodata-sb-rest** app (see section below).
 
 Then run:
 
@@ -126,6 +152,39 @@ docker-compose -f src/main/docker/app.yml up -d
 ```
 
 For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
+
+
+## Buidling docker image
+JIB plugin is used to build docker image of the spotsie-rest subproject.
+
+To build local image use the follwoing command:
+
+```bash
+./gradlew bootJar -Pprod jibDockerBuild
+```
+This will build image named ` ag04/geodata-sb-rest ` in your local registry with the tag equal to the project version.
+
+On the other hand, this command:
+```bash
+./gradlew bootJar -Pprod jib
+```
+Will build image named `ag04/geodata-sb-res` in docker.io registry with the tag equal to the project version.
+
+Image name, version and docker Registry to be used in buildcan be customized by passing these arguments:
+
+| Argument name     | Description                    |
+|-------------------|--------------------------------|
+| imageName         | Name of the image to be built  |
+| imageVersion      | Image tag to be used insted of project version  |
+| dockerRegistryUrl | URL of the docker registry this image should be pushed to (applicable only for jib command) |
+
+To build (local) image wiht the latest tag run:
+```bash
+./gradlew bootJar -Pprod jibDockerBuild -PimageVersion=latest
+```
+
+For all other parameters available (docker registry authentication etc) for jib plugin please see official plugin docs:
+https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin
 
 ## Continuous Integration (optional)
 
@@ -141,3 +200,4 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v7.4.1/setting-up-ci/
 [node.js]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
+[geodataApp]: https://github.com/dmadunic/geodata-app
