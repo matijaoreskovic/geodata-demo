@@ -1,7 +1,7 @@
 # geodataRestSb
 Spring Boot **rest only** implementation of **[geodataApp][]**.
 
-This application was generated using JHipster 7.4.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.4.1](https://www.jhipster.tech/documentation-archive/v7.4.1).
+This application was generated using JHipster 7.5.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.5.0](https://www.jhipster.tech/documentation-archive/v7.5.0).
 
 ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white&style=flat)
 ![](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white&style=flat)
@@ -19,6 +19,8 @@ In the project root, JHipster generates configuration files for tools like git, 
 - `.yo-resolve` (optional) - Yeoman conflict resolver
   Allows to use a specific action when conflicts are found skipping prompts for files that matches a pattern. Each line should match `[pattern] [action]` with pattern been a [Minimatch](https://github.com/isaacs/minimatch#minimatch) pattern and action been one of skip (default if ommited) or force. Lines starting with `#` are considered comments and are ignored.
 - `.jhipster/*.json` - JHipster entity configuration files
+- `npmw` - wrapper to use locally installed npm.
+  JHipster installs Node and npm locally using the build tool by default. This wrapper makes sure npm is installed locally and uses it avoiding some differences different versions can cause. By using `./npmw` instead of the traditional `npm` you can configure a Node-less environment to develop or test your application.
 - `/src/main/docker` - Docker configurations for the application and services that the application depends on
 
 ## Development
@@ -193,13 +195,13 @@ https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin
 To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
 [jhipster homepage and latest documentation]: https://www.jhipster.tech
-[jhipster 7.4.1 archive]: https://www.jhipster.tech/documentation-archive/v7.4.1
-[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v7.4.1/development/
-[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v7.4.1/docker-compose
-[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v7.4.1/production/
-[running tests page]: https://www.jhipster.tech/documentation-archive/v7.4.1/running-tests/
-[code quality page]: https://www.jhipster.tech/documentation-archive/v7.4.1/code-quality/
-[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v7.4.1/setting-up-ci/
+[jhipster 7.5.0 archive]: https://www.jhipster.tech/documentation-archive/v7.5.0
+[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v7.5.0/development/
+[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v7.5.0/docker-compose
+[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v7.5.0/production/
+[running tests page]: https://www.jhipster.tech/documentation-archive/v7.5.0/running-tests/
+[code quality page]: https://www.jhipster.tech/documentation-archive/v7.5.0/code-quality/
+[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v7.5.0/setting-up-ci/
 [node.js]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
 [geodataApp]: https://github.com/dmadunic/geodata-app
