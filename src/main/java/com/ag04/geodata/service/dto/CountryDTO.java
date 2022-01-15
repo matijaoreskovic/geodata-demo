@@ -1,6 +1,6 @@
 package com.ag04.geodata.service.dto;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.validation.constraints.*;
@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.ag04.geodata.domain.Country} entity.
  */
-@ApiModel(description = "Base backend model definition for geodata entities.\n")
+@Schema(description = "Base backend model definition for geodata entities.\n")
 public class CountryDTO implements Serializable {
 
     private Long id;
