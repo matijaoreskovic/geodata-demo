@@ -18,6 +18,8 @@ logging:
     ROOT: INFO
     tech.jhipster: INFO
     com.ag04.geodata: INFO
+    io.netty: ERROR
+    org.springframework: INFO
 
 management:
   metrics:

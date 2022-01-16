@@ -15,9 +15,30 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
+import org.springframework.nativex.hint.JdkProxyHint;
+import org.springframework.nativex.hint.TypeHint;
+
 import tech.jhipster.config.DefaultProfileUtil;
 import tech.jhipster.config.JHipsterConstants;
 
+@TypeHint(
+    types = {
+        org.HdrHistogram.Histogram.class,
+        org.HdrHistogram.ConcurrentHistogram.class,
+        liquibase.configuration.LiquibaseConfiguration.class,
+        com.zaxxer.hikari.HikariDataSource.class,
+        liquibase.change.core.LoadDataColumnConfig.class,
+        tech.jhipster.domain.util.FixedPostgreSQL10Dialect.class,
+        org.hibernate.type.TextType.class
+        //org.springframework.security.oauth2.jwt.JwtDecoder.class
+    })
+@JdkProxyHint(
+    types = {
+        org.springframework.data.jpa.repository.support.CrudMethodMetadata.class,
+        org.springframework.aop.SpringProxy.class,
+        org.springframework.aop.framework.Advised.class,
+        org.springframework.core.DecoratingProxy.class
+    })
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
 public class GeodataRestSbApp {

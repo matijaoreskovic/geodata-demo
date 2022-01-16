@@ -1,9 +1,11 @@
 buildscript {
     repositories {
         gradlePluginPortal()
+        maven { url 'https://repo.spring.io/release' }
     }
     dependencies {
         //jhipster-needle-gradle-buildscript-dependency - JHipster will add additional gradle build script plugins here
+        classpath "org.hibernate:hibernate-gradle-plugin:5.1.0.Final"
     }
 }
 
@@ -21,7 +23,10 @@ plugins {
     id "io.spring.nohttp"
     id "com.github.andygoossens.gradle-modernizer-plugin"
     //jhipster-needle-gradle-plugins - JHipster will add additional gradle plugins here
+    id "org.springframework.experimental.aot"
 }
+
+apply plugin: 'org.hibernate.orm'
 
 group = "com.ag04.geodata"
 description = "Spring boot implementation of geodata rest API"
@@ -78,9 +83,17 @@ eclipse {
 }
 
 defaultTasks "bootRun"
-
+/*
 springBoot {
-    mainClassName = "com.ag04.geodata.GeodataSbRestApp"
+    mainClassName = "com.ag04.geodata.GeodataRestSbApp"
+}
+*/
+bootBuildImage {
+    imageName = "ag04/geodata-rest-sb-native"
+    builder = "paketobuildpacks/builder:tiny"
+    environment = [
+        "BP_NATIVE_IMAGE" : "true"
+    ]
 }
 
 test {
@@ -181,8 +194,9 @@ nohttp {
 
 configurations {
     providedRuntime
-    implementation.exclude module: "spring-boot-starter-tomcat"
+    //implementation.exclude module: "spring-boot-starter-tomcat"
     all {
+        exclude group:"org.springframework.boot", module: "spring-boot-devtools"
         resolutionStrategy {
             // Inherited version from Spring Boot can't be used because of regressions:
             // To be removed as soon as spring-boot use the same version
@@ -196,19 +210,18 @@ repositories {
     // mavenLocal()
     mavenCentral()
     //jhipster-needle-gradle-repositories - JHipster will add additional repositories
+    maven { url 'https://repo.spring.io/release' }
 }
 
 dependencies {
     // import JHipster dependencies BOM
-    if (!project.hasProperty("gae")) {
-        implementation platform("tech.jhipster:jhipster-dependencies:${jhipsterDependenciesVersion}")
-    }
+    implementation platform("tech.jhipster:jhipster-dependencies:${jhipsterDependenciesVersion}")
 
     // Use ", version: jhipsterDependenciesVersion, changing: true" if you want
     // to use a SNAPSHOT release instead of a stable release
     implementation group: "tech.jhipster", name: "jhipster-framework"
     implementation "javax.annotation:javax.annotation-api"
-    implementation "org.springframework.boot:spring-boot-starter-cache"
+    implementation "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
     implementation "io.dropwizard.metrics:metrics-core"
     implementation "io.micrometer:micrometer-registry-prometheus"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-hppc"
@@ -226,27 +239,27 @@ dependencies {
     implementation "org.hibernate:hibernate-jcache"
     implementation "org.hibernate:hibernate-entitymanager"
     implementation "org.hibernate.validator:hibernate-validator"
-    implementation "org.liquibase:liquibase-core"
-    liquibaseRuntime "org.liquibase:liquibase-core"
+    implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
+    liquibaseRuntime "org.liquibase:liquibase-core:${liquibaseVersion}"
     liquibaseRuntime "org.liquibase.ext:liquibase-hibernate5:${liquibaseHibernate5Version}"
     liquibaseRuntime sourceSets.main.compileClasspath
-    implementation "org.springframework.boot:spring-boot-loader-tools"
-    implementation "org.springframework.boot:spring-boot-starter-mail"
-    implementation "org.springframework.boot:spring-boot-starter-logging"
-    implementation "org.springframework.boot:spring-boot-starter-actuator"
-    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
-    testImplementation "org.testcontainers:postgresql"
-    implementation "org.springframework.boot:spring-boot-starter-security"
-    implementation ("org.springframework.boot:spring-boot-starter-web") {
+    implementation "org.springframework.boot:spring-boot-loader-tools:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-mail:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-logging:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+    implementation ("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude module: "spring-boot-starter-tomcat"
     }
-    implementation "org.springframework.boot:spring-boot-starter-undertow"
-    implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
+    //implementation "org.springframework.boot:spring-boot-starter-undertow"
+    implementation "org.springframework.boot:spring-boot-starter-tomcat"
+    implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
     implementation "org.zalando:problem-spring-web"
-    implementation "org.springframework.cloud:spring-cloud-starter-bootstrap"
-    implementation "org.springframework.security:spring-security-config"
-    implementation "org.springframework.security:spring-security-data"
-    implementation "org.springframework.security:spring-security-web"
+    implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:${springBootVersion}"
+    implementation "org.springframework.security:spring-security-config:${springBootVersion}"
+    implementation "org.springframework.security:spring-security-data:${springBootVersion}"
+    implementation "org.springframework.security:spring-security-web:${springBootVersion}"
     implementation "io.jsonwebtoken:jjwt-api"
     if (!project.hasProperty("gae")) {
         runtimeOnly "io.jsonwebtoken:jjwt-impl"
@@ -255,7 +268,9 @@ dependencies {
         implementation "io.jsonwebtoken:jjwt-impl"
         implementation "io.jsonwebtoken:jjwt-jackson"
     }
-    implementation ("org.springdoc:springdoc-openapi-webmvc-core")
+    //implementation ("org.springdoc:springdoc-openapi-webmvc-core")
+    implementation ("org.springdoc:springdoc-openapi-native:1.6.0")
+    
     implementation "org.postgresql:postgresql"
     liquibaseRuntime "org.postgresql:postgresql"
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
@@ -263,13 +278,17 @@ dependencies {
     annotationProcessor "org.hibernate:hibernate-jpamodelgen:${hibernateVersion}"
     annotationProcessor "org.glassfish.jaxb:jaxb-runtime:${jaxbRuntimeVersion}"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
-    testImplementation "org.springframework.security:spring-security-test"
-    testImplementation "org.springframework.boot:spring-boot-test"
+    
+    testImplementation "org.testcontainers:postgresql"
+    testImplementation ("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
+        exclude module: "org.mockito"
+    }
+    testImplementation "org.springframework.security:spring-security-test:${springBootVersion}"
+    testImplementation "org.springframework.boot:spring-boot-test:${springBootVersion}"
     testImplementation "com.tngtech.archunit:archunit-junit5-api:${archunitJunit5Version}"
     testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunitJunit5Version}"
     testImplementation "com.h2database:h2"
-    developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+    //developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 
