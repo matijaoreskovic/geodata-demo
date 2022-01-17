@@ -80,7 +80,7 @@ eclipse {
 defaultTasks "bootRun"
 
 springBoot {
-    mainClassName = "com.ag04.geodata.GeodataSbRestApp"
+    mainClassName = "com.ag04.geodata.GeodataRestSbApp"
 }
 
 test {
