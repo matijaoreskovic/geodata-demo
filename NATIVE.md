@@ -104,14 +104,21 @@ implementation ("org.springdoc:springdoc-openapi-native:1.6.0")
 
 ```
 
-9. Delete spring-logback.xml and tone down logging
+9. Fix logging
+Delete `spring-logback.xml` and reduce logging in application-*.properties files with:
 
+```
 logging:
   level:
     root: ERROR
     io.netty: ERROR
     org.springframework: INFO
+```
+## Build app
 
+```bash
+./gradlew bootBuildImage
+```
 ## References:
 https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/
 https://github.com/mraible/spring-native-examples
