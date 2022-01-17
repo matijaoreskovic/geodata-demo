@@ -83,11 +83,13 @@ eclipse {
 }
 
 defaultTasks "bootRun"
+
 /*
 springBoot {
     mainClassName = "com.ag04.geodata.GeodataRestSbApp"
 }
-*/
+ */
+
 bootBuildImage {
     imageName = "ag04/geodata-rest-sb-native"
     builder = "paketobuildpacks/builder:tiny"
