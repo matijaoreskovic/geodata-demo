@@ -96,7 +96,8 @@ public class TokenProvider {
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
         */
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        User principal = new User("Some user", "", authorities);
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        User principal = new User("user", "", authorities);
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 

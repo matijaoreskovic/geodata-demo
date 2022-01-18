@@ -123,6 +123,8 @@ logging:
 ## Issues
 - Cache does not work
 - 
+- Mail service does not work
+- 
 
 ## References:
 https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/
