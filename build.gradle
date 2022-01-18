@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         //jhipster-needle-gradle-buildscript-dependency - JHipster will add additional gradle build script plugins here
-        classpath "org.hibernate:hibernate-gradle-plugin:5.1.0.Final"
+        classpath "org.hibernate:hibernate-gradle-plugin:5.6.3.Final"
     }
 }
 
@@ -83,12 +83,11 @@ eclipse {
 }
 
 defaultTasks "bootRun"
-
 /*
 springBoot {
     mainClassName = "com.ag04.geodata.GeodataRestSbApp"
 }
- */
+*/
 
 bootBuildImage {
     imageName = "ag04/geodata-rest-sb-native"
@@ -223,23 +222,28 @@ dependencies {
     // to use a SNAPSHOT release instead of a stable release
     implementation group: "tech.jhipster", name: "jhipster-framework"
     implementation "javax.annotation:javax.annotation-api"
-    implementation "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
+    //implementation "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
+    //implementation "javax.cache:cache-api"
+    //implementation "org.ehcache:ehcache"
+
     implementation "io.dropwizard.metrics:metrics-core"
     implementation "io.micrometer:micrometer-registry-prometheus"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-hppc"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
     implementation "com.fasterxml.jackson.module:jackson-module-jaxb-annotations"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5"
-    implementation "com.fasterxml.jackson.core:jackson-annotations"
-    implementation "com.fasterxml.jackson.core:jackson-databind"
-    implementation "javax.cache:cache-api"
+    // NOT FOUND in mraible: 
+    //implementation "com.fasterxml.jackson.core:jackson-annotations"
+    //implementation "com.fasterxml.jackson.core:jackson-databind"
+    //implementation "javax.transaction:javax.transaction-api"
+    //implementation "org.hibernate:hibernate-jcache"
+    //implementation "org.hibernate:hibernate-entitymanager"
+    //implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:${springBootVersion}"
+
     implementation "org.hibernate:hibernate-core"
     implementation "com.zaxxer:HikariCP"
     implementation "org.apache.commons:commons-lang3"
-    implementation "javax.transaction:javax.transaction-api"
-    implementation "org.ehcache:ehcache"
-    implementation "org.hibernate:hibernate-jcache"
-    implementation "org.hibernate:hibernate-entitymanager"
+        
     implementation "org.hibernate.validator:hibernate-validator"
     implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
     liquibaseRuntime "org.liquibase:liquibase-core:${liquibaseVersion}"
@@ -250,26 +254,35 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-logging:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+    
+    /*
     implementation ("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude module: "spring-boot-starter-tomcat"
-    }
+    } */
     //implementation "org.springframework.boot:spring-boot-starter-undertow"
-    implementation "org.springframework.boot:spring-boot-starter-tomcat"
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    
+    implementation "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
     implementation "org.zalando:problem-spring-web"
-    implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:${springBootVersion}"
+    
+    //mraible example does not have these also
+    implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
     implementation "org.springframework.security:spring-security-config:${springBootVersion}"
     implementation "org.springframework.security:spring-security-data:${springBootVersion}"
     implementation "org.springframework.security:spring-security-web:${springBootVersion}"
     implementation "io.jsonwebtoken:jjwt-api"
+    
+    implementation "io.jsonwebtoken:jjwt-impl"
+    implementation "io.jsonwebtoken:jjwt-jackson"
+    /*
     if (!project.hasProperty("gae")) {
         runtimeOnly "io.jsonwebtoken:jjwt-impl"
         runtimeOnly "io.jsonwebtoken:jjwt-jackson"
     } else {
         implementation "io.jsonwebtoken:jjwt-impl"
         implementation "io.jsonwebtoken:jjwt-jackson"
-    }
+    } */
     //implementation ("org.springdoc:springdoc-openapi-webmvc-core")
     implementation ("org.springdoc:springdoc-openapi-native:1.6.0")
     

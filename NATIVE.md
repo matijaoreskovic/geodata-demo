@@ -114,11 +114,12 @@ logging:
     io.netty: ERROR
     org.springframework: INFO
 ```
-## Build app
+## Build native image
 
 ```bash
 ./gradlew bootBuildImage
 ```
+
 ## References:
 https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/
 https://github.com/mraible/spring-native-examples

@@ -35,22 +35,24 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
     private final AuthorityRepository authorityRepository;
 
-    private final CacheManager cacheManager;
+    private final PasswordEncoder passwordEncoder;
 
+    //private final CacheManager cacheManager;
+
+    /*
+        ,
+        CacheManager cacheManager
+    */
     public UserService(
         UserRepository userRepository,
-        PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
-        CacheManager cacheManager
+        PasswordEncoder passwordEncoder
     ) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
-        this.cacheManager = cacheManager;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -316,10 +318,12 @@ public class UserService {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
     }
 
+    
     private void clearUserCaches(User user) {
+        /*
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
         if (user.getEmail() != null) {
             Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
-        }
+        }*/
     }
 }
