@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         //jhipster-needle-gradle-buildscript-dependency - JHipster will add additional gradle build script plugins here
-        classpath "org.hibernate:hibernate-gradle-plugin:5.6.3.Final"
+        //classpath "org.hibernate:hibernate-gradle-plugin:5.6.3.Final"
     }
 }
 
@@ -26,10 +26,10 @@ plugins {
     id "org.springframework.experimental.aot"
 }
 
-apply plugin: 'org.hibernate.orm'
+//apply plugin: 'org.hibernate.orm'
 
 group = "com.ag04.geodata"
-description = "Spring boot implementation of geodata rest API"
+description = "Spring Boot implementation of Geodata REST API"
 
 sourceCompatibility=11
 targetCompatibility=11
@@ -222,6 +222,7 @@ dependencies {
     // to use a SNAPSHOT release instead of a stable release
     implementation group: "tech.jhipster", name: "jhipster-framework"
     implementation "javax.annotation:javax.annotation-api"
+    // TODO: not working at the moment
     //implementation "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
     //implementation "javax.cache:cache-api"
     //implementation "org.ehcache:ehcache"
@@ -235,16 +236,20 @@ dependencies {
     // NOT FOUND in mraible: 
     //implementation "com.fasterxml.jackson.core:jackson-annotations"
     //implementation "com.fasterxml.jackson.core:jackson-databind"
-    //implementation "javax.transaction:javax.transaction-api"
     //implementation "org.hibernate:hibernate-jcache"
-    //implementation "org.hibernate:hibernate-entitymanager"
+    //
     //implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:${springBootVersion}"
 
-    implementation "org.hibernate:hibernate-core"
+    implementation "org.hibernate:hibernate-core:${hibernateVersion}"
+    implementation "org.hibernate.validator:hibernate-validator"
+    // missing in mraible example?
+    implementation "org.hibernate:hibernate-entitymanager:${hibernateVersion}"
+    implementation "javax.transaction:javax.transaction-api"
+    
+    
     implementation "com.zaxxer:HikariCP"
     implementation "org.apache.commons:commons-lang3"
         
-    implementation "org.hibernate.validator:hibernate-validator"
     implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
     liquibaseRuntime "org.liquibase:liquibase-core:${liquibaseVersion}"
     liquibaseRuntime "org.liquibase.ext:liquibase-hibernate5:${liquibaseHibernate5Version}"
@@ -271,10 +276,11 @@ dependencies {
     implementation "org.springframework.security:spring-security-config:${springBootVersion}"
     implementation "org.springframework.security:spring-security-data:${springBootVersion}"
     implementation "org.springframework.security:spring-security-web:${springBootVersion}"
-    implementation "io.jsonwebtoken:jjwt-api"
+    implementation "io.jsonwebtoken:jjwt-api:0.11.2"
     
-    implementation "io.jsonwebtoken:jjwt-impl"
-    implementation "io.jsonwebtoken:jjwt-jackson"
+    //TODO: these jars do not appear in the native image?
+    implementation "io.jsonwebtoken:jjwt-impl:0.11.2"
+    implementation "io.jsonwebtoken:jjwt-jackson:0.11.2"
     /*
     if (!project.hasProperty("gae")) {
         runtimeOnly "io.jsonwebtoken:jjwt-impl"

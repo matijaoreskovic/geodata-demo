@@ -15,10 +15,12 @@
 
 logging:
   level:
-    ROOT: DEBUG
-    tech.jhipster: DEBUG
-    org.hibernate.SQL: DEBUG
+    ROOT: INFO
+    tech.jhipster: INFO
+    org.hibernate.SQL: INFO
     com.ag04.geodata: DEBUG
+    io.netty: ERROR
+    org.springframework: INFO
 
 spring:
   devtools:
@@ -42,7 +44,7 @@ spring:
     database-platform: tech.jhipster.domain.util.FixedPostgreSQL10Dialect
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
-    contexts: dev, faker
+    contexts: dev
   mail:
     host: localhost
     port: 25

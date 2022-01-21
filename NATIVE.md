@@ -122,7 +122,7 @@ logging:
 
 ## Issues
 - Cache does not work
-- 
+- EntityGraph does not work
 - Mail service does not work
 - 
 

@@ -17,7 +17,7 @@ logging:
   level:
     ROOT: INFO
     tech.jhipster: INFO
-    com.ag04.geodata: INFO
+    com.ag04.geodata: DEBUG
     io.netty: ERROR
     org.springframework: INFO
 
