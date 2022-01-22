@@ -100,6 +100,7 @@ spring:
       dev:
         - dev
         - api-docs
+        - awsses
         # Uncomment to activate TLS for the dev profile
         #- tls
   jmx:
@@ -150,9 +151,12 @@ spring:
     ansi:
       console-available: true
   liquibase:
-    #enabled: false
     enabled: ${GRSB_LIQUIBASE_ENABLED:false}
-
+  mail:
+    host: ${MAIL_HOST.localhost}
+    port: ${MAIL_PORT:25}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PWD:}
 server:
   servlet:
     session:

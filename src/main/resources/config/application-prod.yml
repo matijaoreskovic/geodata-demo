@@ -49,24 +49,6 @@ spring:
   liquibase:
     contexts: ${LIQUIBASE_CONTEXTS}
     default-schema: ${DB_SCHEMA:public}
-  mail:
-    host: email-smtp.eu-west-1.amazonaws.com}
-    username: AKIA3QRJDSTTRAOYFZM5
-    password: BE5T7hE0STLdFse0ZuiwxUCYgAcpcN38lS+vmxhOHdcQ
-    protocol: smtps
-    properties:
-      mail:
-        transport:
-          protocol: smtps
-        smtps:
-          port: 465
-          auth: true
-        smtp:
-          ssl:
-            enable: true
-          starttls:
-            enable: true
-            required: true
   thymeleaf:
     cache: true
   sleuth:

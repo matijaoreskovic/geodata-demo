@@ -46,24 +46,6 @@ spring:
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev
-  mail:
-    host: email-smtp.eu-west-1.amazonaws.com
-    username: AKIA3QRJDSTTRAOYFZM5
-    password: BE5T7hE0STLdFse0ZuiwxUCYgAcpcN38lS+vmxhOHdcQ
-    protocol: smtps
-    properties:
-      mail:
-        transport:
-          protocol: smtps
-        smtps:
-          port: 465
-          auth: true
-        smtp:
-          ssl:
-            enable: true
-          starttls:
-            enable: true
-            required: true
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
