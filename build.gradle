@@ -226,6 +226,7 @@ dependencies {
     //implementation "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
     //implementation "javax.cache:cache-api"
     //implementation "org.ehcache:ehcache"
+    //implementation "org.hibernate:hibernate-jcache"
 
     implementation "io.dropwizard.metrics:metrics-core"
     implementation "io.micrometer:micrometer-registry-prometheus"
@@ -234,10 +235,10 @@ dependencies {
     implementation "com.fasterxml.jackson.module:jackson-module-jaxb-annotations"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5"
     // NOT FOUND in mraible: 
-    //implementation "com.fasterxml.jackson.core:jackson-annotations"
-    //implementation "com.fasterxml.jackson.core:jackson-databind"
-    //implementation "org.hibernate:hibernate-jcache"
-    //
+    implementation "com.fasterxml.jackson.core:jackson-annotations"
+    implementation "com.fasterxml.jackson.core:jackson-databind"
+    
+    // Not supported
     //implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:${springBootVersion}"
 
     implementation "org.hibernate:hibernate-core:${hibernateVersion}"
@@ -263,10 +264,10 @@ dependencies {
     /*
     implementation ("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude module: "spring-boot-starter-tomcat"
-    } */
-    //implementation "org.springframework.boot:spring-boot-starter-undertow"
+    }
+    implementation "org.springframework.boot:spring-boot-starter-undertow"
+    */
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-    
     implementation "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
     implementation "org.zalando:problem-spring-web"
