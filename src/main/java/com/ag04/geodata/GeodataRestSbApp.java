@@ -31,8 +31,7 @@ import tech.jhipster.config.JHipsterConstants;
         tech.jhipster.domain.util.FixedPostgreSQL10Dialect.class,
         org.hibernate.type.TextType.class,
         io.jsonwebtoken.impl.DefaultJwtParserBuilder.class,
-        io.jsonwebtoken.impl.DefaultJwtBuilder.class,
-        org.springframework.boot.autoconfigure.mail.MailProperties.class
+        io.jsonwebtoken.impl.DefaultJwtBuilder.class
     })
 @JdkProxyHint(
     types = {

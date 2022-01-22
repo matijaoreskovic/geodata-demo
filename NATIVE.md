@@ -114,6 +114,31 @@ logging:
     io.netty: ERROR
     org.springframework: INFO
 ```
+## Fix User entity
+Comment @EntityGraph annotations in UserRepository
+Mofiy User entity by adding @EntityListeners(AuditingEntityListener.class) at the top of it
+
+Change authorites property by adding FetchType.EAGER
+
+```java
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "jhi_user_authority",
+        joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
+        inverseJoinColumns = { @JoinColumn(name = "authority_name", referencedColumnName = "name") }
+    )
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @BatchSize(size = 20)
+    private Set<Authority> authorities = new HashSet<>();
+```
+
+## Fix mail service
+
+- Add mime.types to META-INF/native-image/resource-config.json include section
+- Create MailPropertiesConfiguration
+- Manually configure MailSender bean
+
 ## Build native image
 
 Now native image can be built by issueing the command:
@@ -130,13 +155,13 @@ docker-compose -f src/main/docker/app-host.yml up
 
 This will start both angular web frontend and spring-native powered Rest API.
 
-Now, you can point your browser to: `http://localhost/`
+Now, you can point your browser to: `http://localhost:9000/`
 
 ## Known issues
-- Cache does not work
-- EntityGraph does not work
-- Mail service does not work
-- 
+-[ ] Cache does not work
+-[ ] EntityGraph does not work
+-[ ] Mail service does not work
+-[ ] 
 
 ## References:
 https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/
