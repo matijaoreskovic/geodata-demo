@@ -10,7 +10,7 @@ spring:
   mail:
     host: email-smtp.eu-west-1.amazonaws.com
     username: AKIA3QRJDSTTRAOYFZM5
-    password: BE5T7hE0STLdFse0ZuiwxUCYgAcpcN38lS+vmxhOHdcQ
+    password: xxxx
     protocol: smtps
     port: 465
     properties:
