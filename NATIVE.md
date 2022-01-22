@@ -192,6 +192,7 @@ Now, you can point your browser to: `http://localhost:9000/`
 -[ ] Cache does not work
 -[ ] EntityGraph does not work
 -[x] Mail service does not work (workaround fix)
+-[ ] @Async does not work
 -[ ] Logs don’t work (/management/loggers returns HTML instead of JSON)
 -[ ] Configuration doesn’t work (org.springframework.http.converter.HttpMessageNotWritableException: No converter for [class org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint$ApplicationConfigurationProperties] with preset Content-Type 'null')
 -[ ] Metrics (JMS Support)

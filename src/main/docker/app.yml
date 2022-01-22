@@ -11,14 +11,14 @@ services:
     ports:
     - "9000:80"
   geodata-rest-sb:
-    image: ag04/geodata-rest-sb:latest
+    image: ag04/geodata-rest-sb-native:latest
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       #- SPRING_DATASOURCE_URL=jdbc:postgresql://geodatarestsb-postgresql:5432/geodataRestSb
       #- SPRING_LIQUIBASE_URL=jdbc:postgresql://geodatarestsb-postgresql:5432/geodataRestSb
-      - JHIPSTER_SLEEP=10 # gives time for other services to boot before the application
+      - JHIPSTER_SLEEP=20 # gives time for other services to boot before the application
       - DATASOURCE_URL=jdbc:postgresql://geodatarestsb-postgresql:5432/geodataRestSb
       - DB_USER=geodataRestSb
       - DB_PWD=
@@ -30,12 +30,13 @@ services:
       - MAIL_USERNAME=
       - MAIL_PWD=
       - APP_BASE_URL=http://localhost:8080
+      - APP_MAIL_FROM=workshop@ag04.com
     ports:
       - 8080:8080
   geodatarestsb-postgresql:
     image: postgres:13.5
-    # volumes:
-    #   - ~/volumes/jhipster/geodataRestSb/postgresql/:/var/lib/postgresql/data/
+    volumes:
+      - ~/volumes/geodata/postgresql/:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=geodataRestSb
       - POSTGRES_PASSWORD=
