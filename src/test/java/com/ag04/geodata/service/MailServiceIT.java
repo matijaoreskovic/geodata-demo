@@ -69,8 +69,7 @@ class MailServiceIT {
     public void setup() {
         MockitoAnnotations.openMocks(this);
         doNothing().when(javaMailSender).send(any(MimeMessage.class));
-        mailService = new MailService(jHipsterProperties, messageSource, templateEngine);
-        //mailService = new MailService(jHipsterProperties, javaMailSender, messageSource, templateEngine);
+        mailService = new MailService(jHipsterProperties, javaMailSender, messageSource, templateEngine);
     }
 
     @Test

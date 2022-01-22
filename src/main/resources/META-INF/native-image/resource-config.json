@@ -1,0 +1,7 @@
+{
+    "resources": {
+        "includes": [
+            {"pattern": "\\Qorg/springframework/mail/javamail/mime.types\\E"}
+        ]
+    }
+}

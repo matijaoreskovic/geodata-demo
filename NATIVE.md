@@ -97,7 +97,7 @@ implementation "org.springframework.boot:spring-boot-starter-tomcat"
 implementation ("org.springdoc:springdoc-openapi-native:1.6.0")
 ```
 
-8. Add Hibernate BytecodeEnhancement plugin
+8. Add Hibernate BytecodeEnhancement plugin (NOT SURE we need this?!)
 
 ```groovy
 
@@ -116,11 +116,23 @@ logging:
 ```
 ## Build native image
 
+Now native image can be built by issueing the command:
+
 ```bash
 ./gradlew bootBuildImage
 ```
 
-## Issues
+To test if all is working well run:
+
+```bash
+docker-compose -f src/main/docker/app-host.yml up
+```
+
+This will start both angular web frontend and spring-native powered Rest API.
+
+Now, you can point your browser to: `http://localhost/`
+
+## Known issues
 - Cache does not work
 - EntityGraph does not work
 - Mail service does not work

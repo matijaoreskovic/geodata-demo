@@ -29,8 +29,10 @@ import tech.jhipster.config.JHipsterConstants;
         com.zaxxer.hikari.HikariDataSource.class,
         liquibase.change.core.LoadDataColumnConfig.class,
         tech.jhipster.domain.util.FixedPostgreSQL10Dialect.class,
-        org.hibernate.type.TextType.class
-        //org.springframework.security.oauth2.jwt.JwtDecoder.class
+        org.hibernate.type.TextType.class,
+        io.jsonwebtoken.impl.DefaultJwtParserBuilder.class,
+        io.jsonwebtoken.impl.DefaultJwtBuilder.class,
+        org.springframework.boot.autoconfigure.mail.MailProperties.class
     })
 @JdkProxyHint(
     types = {
