@@ -2,7 +2,7 @@
 
 ## settings.gradle
 
-Add releases repository and aot plugin:
+Add spring releases repository instead of mileston and add aot plugin:
 
 ```
 pluginManagement {
@@ -17,7 +17,6 @@ pluginManagement {
     }
 }
 ```
-
 ## gradle.properties
 
 Upgrade the following two librarires:
@@ -30,14 +29,40 @@ hibernateVersion=5.6.1.Final
 
 ## build.gragle
 
-1. Register aot plugin:
+1. Register aot plugin  and change spring `https://repo.spring.io/milestone` with `https://repo.spring.io/release`
+
+
+2. Add Hibernate BytecodeEnhancement plugin (NOT SURE we need this?!)
 
 ```groovy
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        maven { url 'https://repo.spring.io/release' }
+    }
+    dependencies {
+        //jhipster-needle-gradle-buildscript-dependency - JHipster will add additional gradle build script plugins here
+        classpath "org.hibernate:hibernate-gradle-plugin:5.6.3.Final"
+    }
+}
+
 plugins {
-    ...
+    id "java"
+    id "maven-publish"
+    id "idea"
+    id "eclipse"
+    id "jacoco"
+    id "org.springframework.boot"
+    id "com.google.cloud.tools.jib"
+    id "com.gorylenko.gradle-git-properties"
+    id "org.liquibase.gradle"
+    id "org.sonarqube"
+    id "io.spring.nohttp"
+    id "com.github.andygoossens.gradle-modernizer-plugin"
     //jhipster-needle-gradle-plugins - JHipster will add additional gradle plugins here
     id "org.springframework.experimental.aot"
 }
+apply plugin: 'org.hibernate.orm'
 ```
 
 2. Configure buildpacks
@@ -79,15 +104,22 @@ repositories {
     maven { url 'https://repo.spring.io/release' }
 }
 ```
+### Fix dependencies
 
-5. set explicit version for all spring dependencies
+5. Set explicit version for all spring dependencies
 
 
 6. Replace undertow with tomcat
 
 ```groovy
-//implementation "org.springframework.boot:spring-boot-starter-undertow"
-implementation "org.springframework.boot:spring-boot-starter-tomcat"
+/*
+implementation ("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+    exclude module: "spring-boot-starter-tomcat"
+}
+implementation "org.springframework.boot:spring-boot-starter-undertow"
+*/
+implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+implementation "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
 ```
 
 7. Replace
@@ -97,11 +129,10 @@ implementation "org.springframework.boot:spring-boot-starter-tomcat"
 implementation ("org.springdoc:springdoc-openapi-native:1.6.0")
 ```
 
-8. Add Hibernate BytecodeEnhancement plugin (NOT SURE we need this?!)
+8. Disable spring-cloud-starter-bootstrap
 
 ```groovy
-
-
+//implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:${springBootVersion}"
 ```
 
 9. Fix logging
@@ -160,8 +191,10 @@ Now, you can point your browser to: `http://localhost:9000/`
 ## Known issues
 -[ ] Cache does not work
 -[ ] EntityGraph does not work
--[ ] Mail service does not work
--[ ] 
+-[x] Mail service does not work (workaround fix)
+-[ ] Logs don’t work (/management/loggers returns HTML instead of JSON)
+-[ ] Configuration doesn’t work (org.springframework.http.converter.HttpMessageNotWritableException: No converter for [class org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint$ApplicationConfigurationProperties] with preset Content-Type 'null')
+-[ ] Metrics (JMS Support)
 
 ## References:
 https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/
