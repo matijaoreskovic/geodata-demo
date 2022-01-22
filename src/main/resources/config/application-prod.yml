@@ -47,11 +47,6 @@ spring:
   liquibase:
     contexts: ${LIQUIBASE_CONTEXTS}
     default-schema: ${DB_SCHEMA:public}
-  mail:
-    host: ${MAIL_HOST}
-    port: ${MAIL_PORT:25}
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PWD}
   thymeleaf:
     cache: true
   sleuth:
@@ -118,6 +113,7 @@ jhipster:
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
+    from: ${APP_MAIL_FROM}
     base-url: ${APP_BASE_URL} # Modify according to your server's URL
   logging:
     use-json-format: false # By default, logs are not in Json format

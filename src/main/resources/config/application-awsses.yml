@@ -1,0 +1,28 @@
+# ===================================================================
+# Spring Boot configuration for the "awsses" profile.
+#
+# This configuration overrides the application.yml file.
+#
+# This is configuration for the Agency04 AWS Simple Email Service (SeS)
+# ===================================================================
+
+spring:
+  mail:
+    host: email-smtp.eu-west-1.amazonaws.com
+    username: AKIA3QRJDSTTRAOYFZM5
+    password: BE5T7hE0STLdFse0ZuiwxUCYgAcpcN38lS+vmxhOHdcQ
+    protocol: smtps
+    port: 465
+    properties:
+      mail:
+        transport:
+          protocol: smtps
+        smtps:
+          port: 465
+          auth: true
+        smtp:
+          ssl:
+            enable: true
+          starttls:
+            enable: true
+            required: true
