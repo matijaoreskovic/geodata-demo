@@ -150,7 +150,7 @@ spring:
     ansi:
       console-available: true
   liquibase:
-    enabled: ${GRSB_LIQUIBASE_ENABLED:false}
+    enabled: true
   mail:
     host: ${MAIL_HOST.localhost}
     port: ${MAIL_PORT:25}
