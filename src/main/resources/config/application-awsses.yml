@@ -9,8 +9,8 @@
 spring:
   mail:
     host: email-smtp.eu-west-1.amazonaws.com
-    username: ${EMAIL_USER}
-    password: ${EMAIL_PWD}
+    username: ${MAIL_USER}
+    password: ${MAIL_PWD}
     protocol: smtps
     port: 465
     properties:
