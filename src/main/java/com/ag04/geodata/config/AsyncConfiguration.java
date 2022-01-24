@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.task.TaskExecutionProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +37,14 @@ public class AsyncConfiguration implements AsyncConfigurer {
         executor.setMaxPoolSize(taskExecutionProperties.getPool().getMaxSize());
         executor.setQueueCapacity(taskExecutionProperties.getPool().getQueueCapacity());
         executor.setThreadNamePrefix(taskExecutionProperties.getThreadNamePrefix());
-        return new ExceptionHandlingAsyncTaskExecutor(executor);
+        ExceptionHandlingAsyncTaskExecutor taskExecutor = new ExceptionHandlingAsyncTaskExecutor(executor);
+
+        try {
+            taskExecutor.afterPropertiesSet();
+            return taskExecutor;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
