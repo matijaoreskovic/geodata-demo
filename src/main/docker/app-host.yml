@@ -14,7 +14,7 @@ services:
     image: ag04/geodata-rest-sb-native:latest
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
-      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - SPRING_PROFILES_ACTIVE=prod,api-docs,awsses
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       #- SPRING_DATASOURCE_URL=jdbc:postgresql://geodatarestsb-postgresql:5432/geodataRestSb
       #- SPRING_LIQUIBASE_URL=jdbc:postgresql://geodatarestsb-postgresql:5432/geodataRestSb
@@ -24,12 +24,10 @@ services:
       - DB_PWD=geodatapwd
       - DB_SCHEMA=geodata
       # Check me!
-      - GRSB_LIQUIBASE_ENABLED=false
+      - GRSB_LIQUIBASE_ENABLED=true
       - LIQUIBASE_CONTEXTS=dev
-      - MAIL_HOST=localhost
-      - MAIL_PORT=25
-      - MAIL_USERNAME=
-      - MAIL_PWD=
+      - MAIL_USER=xxxxxxxx
+      - MAIL_PWD=xxxxxxxxx
       - APP_BASE_URL=http://localhost:8080
       - APP_MAIL_FROM=workshop@ag04.com
     # On macOSX and Windows env comment the following two lines, they are linux workaround
