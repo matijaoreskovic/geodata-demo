@@ -222,6 +222,7 @@ dependencies {
     // to use a SNAPSHOT release instead of a stable release
     implementation group: "tech.jhipster", name: "jhipster-framework"
     implementation "javax.annotation:javax.annotation-api"
+    implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
     // TODO: not working at the moment
     //implementation "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
     //implementation "javax.cache:cache-api"
