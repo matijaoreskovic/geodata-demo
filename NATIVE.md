@@ -135,7 +135,7 @@ implementation ("org.springdoc:springdoc-openapi-native:1.6.0")
 //implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:${springBootVersion}"
 ```
 
-9. Fix logging
+## Fix logging
 Delete `spring-logback.xml` and reduce logging in application-*.properties files with:
 
 ```
@@ -170,6 +170,26 @@ Change authorites property by adding FetchType.EAGER
 - Create MailPropertiesConfiguration
 - Manually configure MailSender bean
 
+## Fix Async configuration
+If you try to send email now it will fail, because ExceptionHandlingAsyncTaskExecutor is not fully initialized in native build.
+Change the last line of the getAsyncExecutor() to look as in the code snippet bellow:
+
+```Java
+public Executor getAsyncExecutor() {
+        log.debug("Creating Async Task Executor");
+        ...
+        // return new ExceptionHandlingAsyncTaskExecutor(executor); 
+        ExceptionHandlingAsyncTaskExecutor taskExecutor = new ExceptionHandlingAsyncTaskExecutor(executor);
+
+        try {
+            taskExecutor.afterPropertiesSet();
+            return taskExecutor;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+```
+
 ## Build native image
 
 Now native image can be built by issueing the command:
@@ -190,7 +210,7 @@ Now, you can point your browser to: `http://localhost:9000/`
 
 ## Known issues
 -[ ] Cache does not work
--[ ] @Async does not work
+-[x] @Async does not work
 -[ ] EntityGraph does not work
 -[x] Mail service does not work (workaround fix)
 -[ ] Logs don’t work (/management/loggers returns HTML instead of JSON)
