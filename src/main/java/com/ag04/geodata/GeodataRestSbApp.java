@@ -34,6 +34,7 @@ import tech.jhipster.config.JHipsterConstants;
         io.jsonwebtoken.impl.DefaultJwtParserBuilder.class,
         io.jsonwebtoken.impl.DefaultJwtBuilder.class,
         java.util.Locale.class,
+        com.sun.mail.smtp.SMTPSSLTransport.class,
     }
 )
 @JdkProxyHint(
