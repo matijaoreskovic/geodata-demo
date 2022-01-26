@@ -17,6 +17,7 @@ pluginManagement {
     }
 }
 ```
+
 ## gradle.properties
 
 Upgrade the following two librarires:
@@ -26,11 +27,9 @@ springBootVersion=2.6.1
 hibernateVersion=5.6.1.Final
 ```
 
-
 ## build.gragle
 
-1. Register aot plugin  and change spring `https://repo.spring.io/milestone` with `https://repo.spring.io/release`
-
+1. Register aot plugin and change spring `https://repo.spring.io/milestone` with `https://repo.spring.io/release`
 
 2. Add Hibernate BytecodeEnhancement plugin (NOT SURE we need this?!)
 
@@ -104,10 +103,10 @@ repositories {
     maven { url 'https://repo.spring.io/release' }
 }
 ```
+
 ### Fix dependencies
 
 5. Set explicit version for all spring dependencies
-
 
 6. Replace undertow with tomcat
 
@@ -145,7 +144,9 @@ logging:
     io.netty: ERROR
     org.springframework: INFO
 ```
+
 ## Fix User entity
+
 Comment @EntityGraph annotations in UserRepository
 Mofiy User entity by adding @EntityListeners(AuditingEntityListener.class) at the top of it
 
@@ -170,24 +171,36 @@ Change authorites property by adding FetchType.EAGER
 - Create MailPropertiesConfiguration
 - Manually configure MailSender bean
 
-## Fix Async configuration
-If you try to send email now it will fail, because ExceptionHandlingAsyncTaskExecutor is not fully initialized in native build.
-Change the last line of the getAsyncExecutor() to look as in the code snippet bellow:
+## Fix thymeleaf template generation (used for mail)
+
+Add Locale hint to GeodataRestSbApp. `@TypeHint` annotation is repeatable so you can add as many type hints as needed. This hint will instruct spring to update the `java.util.Locale` entry in the `reflect-config.json` passed over to native image builder, and the method used by the template will not get deleted in the final image.
+
+```
+@TypeHint(types = {java.util.Locale.class}, methods = {@MethodHint(name = "getLanguage")})
+```
+
+## Fix Task Executor configuration
+
+This fix is still dubious, but it works. Without it the application behaves as if the Spring didn't invoke the `afterPropertiesSet` method on the `ExceptionHandlingAsyncTaskExecutor` - which it does if you enable trace and debug logs in the relevant classes and check the output.
+
+Anyhow, the problem is solved by invoking the method manually when creating the bean in `AsyncConfiguration`.
+To do so apply the changes from the following snippet.
 
 ```Java
+@Override
+@Bean(name = "taskExecutor")
 public Executor getAsyncExecutor() {
-        log.debug("Creating Async Task Executor");
-        ...
-        // return new ExceptionHandlingAsyncTaskExecutor(executor); 
-        ExceptionHandlingAsyncTaskExecutor taskExecutor = new ExceptionHandlingAsyncTaskExecutor(executor);
+    ...
+    //return new ExceptionHandlingAsyncTaskExecutor(executor);
+    ExceptionHandlingAsyncTaskExecutor taskExecutor = new ExceptionHandlingAsyncTaskExecutor(executor);
 
-        try {
-            taskExecutor.afterPropertiesSet();
-            return taskExecutor;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    try {
+        taskExecutor.afterPropertiesSet();
+        return taskExecutor;
+    } catch (Exception e) {
+        throw new RuntimeException(e);
     }
+}
 ```
 
 ## Build native image
@@ -211,13 +224,15 @@ Now, you can point your browser to: `http://localhost:9000/`
 ## Known issues
 -[ ] Cache does not work
 -[x] @Async does not work
--[ ] EntityGraph does not work
 -[x] Mail service does not work (workaround fix)
+-[ ] EntityGraph does not work
 -[ ] Logs don’t work (/management/loggers returns HTML instead of JSON)
 -[ ] Configuration doesn’t work (org.springframework.http.converter.HttpMessageNotWritableException: No converter for [class org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint$ApplicationConfigurationProperties] with preset Content-Type 'null')
 -[ ] Metrics (JMS Support)
 
+
 ## References:
+
 https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/
 https://github.com/mraible/spring-native-examples
 https://docs.jboss.org/hibernate/orm/5.4/topical/html_single/bytecode/BytecodeEnhancement.html#_build_time_enhancement
