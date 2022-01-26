@@ -8,7 +8,7 @@
 
 spring:
   mail:
-    host: email-smtp.eu-west-1.amazonaws.com
+    host: ${MAIL_HOST}
     username: ${MAIL_USER}
     password: ${MAIL_PWD}
     protocol: smtps
