@@ -1,7 +1,8 @@
 {
     "resources": {
         "includes": [
-            {"pattern": "\\Qorg/springframework/mail/javamail/mime.types\\E"}
+            {"pattern" : "\\Qorg/springframework/mail/javamail/mime.types\\E"},
+            {"pattern" : ".*/javamail.default.address.map"}
         ]
     }
 }
