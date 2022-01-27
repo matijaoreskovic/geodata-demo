@@ -25,10 +25,8 @@ services:
       - DB_SCHEMA=public
       - GRSB_LIQUIBASE_ENABLED=true
       - LIQUIBASE_CONTEXTS=dev
-      - MAIL_HOST=localhost
-      - MAIL_PORT=25
-      - MAIL_USERNAME=
-      - MAIL_PWD=
+      - MAIL_USER=someUser
+      - MAIL_PWD=somePassword
       - APP_BASE_URL=http://localhost:8080
     ports:
       - 8080:8080

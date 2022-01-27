@@ -26,10 +26,8 @@ services:
       # Check me!
       - GRSB_LIQUIBASE_ENABLED=false
       - LIQUIBASE_CONTEXTS=dev
-      - MAIL_HOST=localhost
-      - MAIL_PORT=25
-      - MAIL_USERNAME=
-      - MAIL_PWD=
+      - MAIL_USER=someUsername
+      - MAIL_PWD=somePassword
       - APP_BASE_URL=http://localhost:8080
     # On macOSX and Windows env comment the following two lines, they are linux workaround
     extra_hosts:
