@@ -26,8 +26,8 @@ services:
       # Check me!
       - GRSB_LIQUIBASE_ENABLED=true
       - LIQUIBASE_CONTEXTS=dev
-      - MAIL_USER=xxxxxxxx
-      - MAIL_PWD=xxxxxxxxx
+      - MAIL_USER=someUsername
+      - MAIL_PWD=somePassword
       - APP_BASE_URL=http://localhost:8080
       - APP_MAIL_FROM=workshop@ag04.com
     # On macOSX and Windows env comment the following two lines, they are linux workaround

@@ -1,4 +1,13 @@
+#--------------------------------------------------------------------
+# This docker-compose file will start all geodata application services:
+# 1) geodata-rest-sb: Spring boot powered REST API
+# 2) geodata-ng: Angular based frontend applicaiton running on nginx (avaliable at http://localhost:9000)
+# 3) postgres database
+# 
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+#
+# (c) Domagoj Madunic 2022.
+#--------------------------------------------------------------------
 version: '3.8'
 services:
   geodata-ng:
@@ -25,12 +34,14 @@ services:
       - DB_SCHEMA=public
       - GRSB_LIQUIBASE_ENABLED=true
       - LIQUIBASE_CONTEXTS=dev
-      - MAIL_USER=xxxxxxxx
-      - MAIL_PWD=xxxxxxxx
+      - MAIL_USER=someUser
+      - MAIL_PWD=somePassword
       - APP_BASE_URL=http://localhost:8080
       - APP_MAIL_FROM=workshop@ag04.com
     ports:
       - 8080:8080
+    depends_on:
+      - geodatarestsb-postgresql
   geodatarestsb-postgresql:
     image: postgres:13.5
     volumes:
