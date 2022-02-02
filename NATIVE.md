@@ -23,8 +23,8 @@ pluginManagement {
 Upgrade the following two librarires:
 
 ```properites
-springBootVersion=2.6.1
-hibernateVersion=5.6.1.Final
+springBootVersion=2.6.2
+hibernateVersion=5.6.3.Final
 ```
 
 ## build.gragle
@@ -112,7 +112,7 @@ repositories {
 
 ```groovy
 /*
-implementation ("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+implementation ("org.springframework.boot:spring-boot-starter-web") {
     exclude module: "spring-boot-starter-tomcat"
 }
 implementation "org.springframework.boot:spring-boot-starter-undertow"
@@ -208,7 +208,7 @@ public Executor getAsyncExecutor() {
 Now native image can be built by issueing the command:
 
 ```bash
-./gradlew bootBuildImage
+./gradlew clean bootBuildImage
 ```
 
 To test if all is working well run:
