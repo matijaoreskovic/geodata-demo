@@ -39,6 +39,8 @@ services:
       - APP_BASE_URL=http://localhost:8080
     ports:
       - 8080:8080
+    depends_on:
+      - geodatarestsb-postgresql
   geodatarestsb-postgresql:
     image: postgres:13.5
     # volumes:
