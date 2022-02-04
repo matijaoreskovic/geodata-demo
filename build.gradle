@@ -283,7 +283,6 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
     implementation "org.zalando:problem-spring-web"
 
-    //mraible examples do not have these
     implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
     implementation "org.springframework.security:spring-security-config:${springBootVersion}"
     implementation "org.springframework.security:spring-security-data:${springBootVersion}"
