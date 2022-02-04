@@ -26,6 +26,7 @@ services:
       # Check me!
       - GRSB_LIQUIBASE_ENABLED=false
       - LIQUIBASE_CONTEXTS=dev
+      - MAIL_HOST=localhost
       - MAIL_USER=someUsername
       - MAIL_PWD=somePassword
       - APP_BASE_URL=http://localhost:8080

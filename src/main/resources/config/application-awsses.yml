@@ -1,9 +1,7 @@
 # ===================================================================
 # Spring Boot configuration for the "awsses" profile.
 #
-# This configuration overrides the application.yml file.
-#
-# This is configuration for the Agency04 AWS Simple Email Service (SeS)
+# This is configuration for the AWS Simple Email Service (SeS)
 # ===================================================================
 
 spring:

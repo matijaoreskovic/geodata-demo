@@ -34,6 +34,7 @@ services:
       - DB_SCHEMA=public
       - GRSB_LIQUIBASE_ENABLED=true
       - LIQUIBASE_CONTEXTS=dev
+      - MAIL_HOST=localhost
       - MAIL_USER=someUser
       - MAIL_PWD=somePassword
       - APP_BASE_URL=http://localhost:8080
