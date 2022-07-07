@@ -1,5 +1,5 @@
-def imageName = 'ag04/geodata-rest-sb'
-def imageVersion = "${version}"
+def imageName = 'moreskovic/geodata-api'
+def imageVersion = "${version}-prod"
 def dockerRegistryUrl = ''
 
 if (project.hasProperty("imageName")) {
