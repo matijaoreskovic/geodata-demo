@@ -8,7 +8,7 @@ metadata:
 spec:
   replicas: 1
   strategy:
-    type: Recreate
+    type: RollingUpdate
   selector:
     matchLabels:
       deploy: geodata-web
@@ -21,7 +21,7 @@ spec:
       containers:
         - name: geodata
           image: ag04/geodata-ng:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           env:
           - name: GEODATA_API_URL
             value: "http://geodata-rest-service:8080/api"

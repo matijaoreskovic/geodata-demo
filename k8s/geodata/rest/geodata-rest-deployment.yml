@@ -27,7 +27,7 @@ spec:
       containers:
         - name: geodata-rest
           image: moreskovic/geodata-test-api:prod
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           env:
           - name: _JAVA_OPTIONS
             value: "-Xmx512m -Xms256m"
