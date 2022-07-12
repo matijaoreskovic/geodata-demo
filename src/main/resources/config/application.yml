@@ -100,7 +100,7 @@ spring:
       dev:
         - dev
         - api-docs
-        - awsses
+        #- awsses
         # Uncomment to activate TLS for the dev profile
         #- tls
   jmx:
