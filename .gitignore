@@ -3,8 +3,7 @@
 ######################
 /build/resources/main/static/**
 /src/test/javascript/coverage/
-/build/
-/bin/
+
 ######################
 # Node
 ######################

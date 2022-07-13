@@ -26,11 +26,11 @@ spec:
     spec:
       containers:
         - name: geodata-rest
-          image: moreskovic/geodata-test-api:prod
+          image: moreskovic/geodata-demo-api:0.3.1-prod
           imagePullPolicy: IfNotPresent
           env:
           - name: _JAVA_OPTIONS
-            value: "-Xmx512m -Xms256m"
+            value: "-Xmx768m -Xms384m"
           - name: MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED
             value: "true"
           - name: JHIPSTER_SLEEP
@@ -101,11 +101,11 @@ spec:
               protocol: TCP
           resources:
             requests:
-              memory: '256Mi'
-              cpu: '200m'
+              memory: '384Mi'
+              cpu: '400m'
             limits:
-              memory: '512Mi'
-              cpu: '300m'
+              memory: '768Mi'
+              cpu: '600m'
           readinessProbe:
             httpGet:
               path: /management/health

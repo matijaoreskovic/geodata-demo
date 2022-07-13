@@ -21,6 +21,7 @@ spec:
       containers:
         - name: geodata
           image: ag04/geodata-ng:latest
+          #image: moreskovic/geodata-ng:new
           imagePullPolicy: IfNotPresent
           env:
           - name: GEODATA_API_URL
@@ -40,5 +41,5 @@ spec:
               memory: '64Mi'
               cpu: '200m'
             limits:
-              memory: '128Mi'
-              cpu: '500m'
+              memory: '256Mi'
+              cpu: '600m'
