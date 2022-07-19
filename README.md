@@ -205,3 +205,182 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [node.js]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
 [geodataApp]: https://github.com/dmadunic/geodata-app
+
+# Full Application Kubernetes Deployment (minikube)
+
+## Prerequisites
+
+### Installed tools
+- docker
+- minikube
+- Virtualbox
+
+## Setup minikube
+
+Start minikube.
+
+```sh
+minikube start --driver=virtualbox --no-vtx-check
+```
+
+### Enable ingress addon
+
+```sh
+minikube addons enable ingress
+```
+
+## 1. Deploy postgres
+
+First we need to create config and secret maps:
+```bash
+kubectl apply -f postgres/postgres-config.yml
+kubectl apply -f postgres/postgres-secret.yml
+```
+Now persistent volume:
+
+```bash
+kubectl create -f postgres/postgres-pv.yml
+kubectl create -f postgres/postgres-pvc.yml
+```
+
+Check if all went well by issuing:
+
+```bash
+kubectl get pvc
+```
+You should see the similar output:
+
+```bash
+NAME                STATUS   VOLUME        CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+postgres-pv-claim   Bound    postgres-pv   5Gi        RWX            manual         35s
+```
+
+Now lets deploy postgres to kubernetes
+
+```bash
+kubectl apply -f k8s/postgres/postgres-deployment.yml
+```
+
+We need to expose database to others as service, so execue the following command:
+
+```bash
+kubectl apply -f k8s/postgres/postgres-service.yml
+```
+
+To check if everything is working well, execute:
+
+```bash
+kubectl get service postgres-service
+```
+
+You shoud see something like:
+
+```
+NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+postgres-service   ClusterIP   10.106.77.188   <none>        5432/TCP   7m25s
+```
+
+We can expose this service, to the outside world by using port forwarding:
+
+```bash
+kubectl port-forward service/postgres-service 5435:5432
+```
+
+**Now startup dbeaver and connect to databse on localhost:5435**
+
+Once all is working as expected kill port-forwarding by pressing ^C inside the terminal.
+
+# 2. Create geodata namespace and resources
+
+Position yourself in terminal in the root folder of this repository.
+
+```bash
+kubectl create -f k8s/geodata/namespace.yml
+```
+
+## Deploy geodata-rest application
+
+First we need to create config and secret maps that hold rest-api configuration parameteres.
+
+```bash
+kubectl apply -f k8s/geodata/geodata-config.yml
+kubectl apply -f k8s/geodata/geodata-secret.yml
+```
+Now it is time to create geodata-rest deployment and service:
+
+```bash
+kubectl apply -f k8s/geodata/rest/geodata-rest-deployment.yml
+kubectl apply -f k8s/geodata/rest/geodata-rest-service.yml
+```
+
+## Deploy geodata-web application
+
+```bash
+kubectl apply -f k8s/geodata/web/geodata-web-deployment.yml
+kubectl apply -f k8s/geodata/web/geodata-web-service.yml
+```
+
+## Expose geodata app with NodePort
+
+```bash
+kubectl expose deployment geodata-web-deployment --type=NodePort -n geodata --name geodata-web-np
+```
+
+Fetch URL
+```bash  
+echo $(minikube ip):$(kubectl get service geodata-web-np -n geodata -o jsonpath='{.spec.ports[0].nodePort}')
+```
+
+## Expose geodata app with LoadBalancer
+
+```bash 
+kubectl expose deployment geodata-web-deployment --type=LoadBalancer -n geodata --name geodata-web-lb
+```
+
+```bash
+minikube tunnel
+```
+
+Fetch LoadBalancer IP
+```bash
+echo $(kubectl get service geodata-web-lb -n geodata -o jsonpath='{.status.loadBalancer.ingress[].ip}')
+```
+
+Use LoadBalancer IP address in browser
+
+
+## Create ingress and expose geodata app
+
+```bash
+kubectl apply -f k8s/geodata/ingress.yml
+```
+
+Executing the command above will create, in geodata namespace, an ingress service that exposes geodata-web application on url: `geodata.local-minikube.io` on port 80.
+
+Add these entry to /etc/hosts file 
+(replace MINIKUBE_IP with your minikube ip address)
+
+```bash
+MINIKUBE_IP    geodata.local-minikube.io
+```
+
+## Single ingress in the default namespace
+
+1. Remove ingress service created in geodata namespace
+```bash
+kubectl delete ingress -n geodata geodata-ingress
+```
+
+2. Create external service for geodata-web-service
+```bash
+kubectl apply -f default/geodata-service-svc.yml
+```
+
+3. Create ingress in default namespace
+```bash
+kubectl apply -f default/ingress-ns-default.yml
+```
+
+
+
+
