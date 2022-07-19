@@ -1,4 +1,4 @@
-def imageName = 'moreskovic/geodata-api'
+def imageName = 'moreskovic/geodata-demo-api'
 def imageVersion = "${version}-prod"
 def dockerRegistryUrl = ''
 
