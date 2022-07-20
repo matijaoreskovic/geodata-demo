@@ -364,23 +364,6 @@ Add these entry to /etc/hosts file
 MINIKUBE_IP    geodata.local-minikube.io
 ```
 
-## Single ingress in the default namespace
-
-1. Remove ingress service created in geodata namespace
-```bash
-kubectl delete ingress -n geodata geodata-ingress
-```
-
-2. Create external service for geodata-web-service
-```bash
-kubectl apply -f default/geodata-service-svc.yml
-```
-
-3. Create ingress in default namespace
-```bash
-kubectl apply -f default/ingress-ns-default.yml
-```
-
-
+Access the app via broweser entering defined URL.
 
 
