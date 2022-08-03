@@ -9,14 +9,6 @@ pipeline {
                 sh './gradlew clean bootJar'
                 }
               }
-        stage ('Stop old instance') {
-            steps {
-                sshagent(credentials : ['geodata_key']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ${UN_AND_IP} "lsof -i :8080"' 
-                    sh 'ssh -o StrictHostKeyChecking=no ${UN_AND_IP} "if [ $? -eq 0 ]; then fuser -k 8080/tcp; fi"'
-                }
-            }
-        }
         stage ('Copy to instance') {
           steps {
                 dir ('build/libs') {
