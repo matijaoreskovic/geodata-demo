@@ -6,9 +6,7 @@ pipeline {
     stages {
         stage ('Building') {
             steps {
-                dir ('geodata-demo'){
-                    sh './gradlew clean bootJar'
-                    }
+                sh './gradlew clean bootJar'
                 }
               }
         stage ('Stop old instance') {
@@ -20,7 +18,7 @@ pipeline {
         }
         stage ('Copy to instance') {
           steps {
-                dir ('geodata-demo/build/libs') {
+                dir ('build/libs') {
                     sshagent(credentials : ['geodata_key']) {
                     sh 'ssh -o StrictHostKeyChecking=no ${UN_AND_IP} -T "rm *.jar || true"'
                     sh 'scp *.jar ${UN_AND_IP}:~/'
