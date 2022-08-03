@@ -13,17 +13,17 @@ pipeline {
             steps {
                 sshagent(credentials : ['geodata_key']) {
                     script {
-                    try {
-                        sh 'ssh -o StrictHostKeyChecking=no ${UN_AND_IP} -T "lsof -i :8080 && fuser -k 8080/tcp"' 
-                    }
-                    catch (Exception e){
-                        echo 'No app running'
-                    }
+                        try {
+                            sh 'ssh -o StrictHostKeyChecking=no ${UN_AND_IP} -T "lsof -i :8080 && fuser -k 8080/tcp"' 
+                        }
+                        catch (Exception e){
+                            echo 'No app running'
+                        }
                     }
                     
                 }
             }
-        }
+    }
         stage ('Copy to instance') {
           steps {
                 dir ('build/libs') {
