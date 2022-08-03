@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    environment {
+    UN_AND_IP = credentials('username_and_ip')
+    }
+    stages {
+        stage ('Building') {
+            steps {
+                dir ('geodata-demo'){
+                    sh './gradlew clean bootJar'
+                    }
+                }
+              }
+        stage ('Stop old instance') {
+            steps {
+                sshagent(credentials : ['geodata_key']) {
+                    sh 'ssh -o StrictHostKeyChecking=no ${UN_AND_IP} -T "fuser -k 8080/tcp"'
+                }
+            }
+        }
+        stage ('Copy to instance') {
+          steps {
+                dir ('geodata-demo/build/libs') {
+                    sshagent(credentials : ['geodata_key']) {
+                    sh 'ssh -o StrictHostKeyChecking=no ${UN_AND_IP} -T "rm *.jar || true"'
+                    sh 'scp *.jar ${UN_AND_IP}:~/'
+                }
+            }
+          }
+        }
+        stage ('Run new app') {
+          steps {
+            sshagent(credentials : ['geodata_key']) {
+                sh 'ssh -o StrictHostKeyChecking=no ${UN_AND_IP} -T "nohup java -jar ~/*.jar > rest.log 2>&1&"'
+            }
+          }
+        }
+    }
+}
+
