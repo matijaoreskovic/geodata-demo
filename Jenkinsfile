@@ -12,11 +12,13 @@ pipeline {
         stage ('Stop old instance') {
             steps {
                 sshagent(credentials : ['geodata_key']) {
+                    script {
                     try {
                         sh 'ssh -o StrictHostKeyChecking=no ${UN_AND_IP} -T "lsof -i :8080 && fuser -k 8080/tcp"' 
                     }
-                    catch {
+                    catch (Exception e){
                         echo 'No app running'
+                    }
                     }
                     
                 }
